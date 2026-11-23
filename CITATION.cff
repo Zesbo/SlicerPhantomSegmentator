@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "Phantom Segmentator: a 3D Slicer module for CT calibration phantom segmentation and HU-to-mgCaHA calibration"
+type: software
+authors:
+  - family-names: Heilmann
+    given-names: Robin
+    affiliation: "Centre for Spine and Bone Oncology (ZESBO), University of Leipzig"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+version: 1.0.0
+date-released: 2026-11-23
+license: MIT
+keywords:
+  - 3D Slicer
+  - quantitative CT
+  - QCT
+  - calibration phantom
+  - bone mineral density
+  - segmentation

@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+
+# Interne Entwicklungsnotizen (nicht veröffentlichen)
+MANIFEST_Phantom_Segmentation_Rebuild.md
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.claude/

@@ -1,0 +1,237 @@
+{
+  "meta": {
+    "phantom_type": "uCT_6H_V1",
+    "display_name": "uCT_6H_V1",
+    "combobox_label": "uCT_6H_V1",
+    "description": "3D-printed uCT calibration phantom, 6 inserts, curved arrangement. Stratasys PolyJet.",
+    "source_file": "uCT_6H.STEP",
+    "coordinate_system": "Local STEP CS: origin at the low point of the arc cross-section (arc midpoint between rod 3 and 4). x: horizontal, y: vertical (positive = toward curvature center), z: rod long axis.",
+    "units": "mm",
+    "_arc_geometry": {
+      "arc_center_xy_mm": [
+        0.0,
+        87.5
+      ],
+      "rod_radii_from_center_mm": {
+        "outer_rods_1_2_5_6": 87.5,
+        "center_rods_3_4": 88.023,
+        "_note": "Geringfuegige Radiusabweichung der mittleren Rods (0.5mm) ist CAD-Design, kein Fehler."
+      },
+      "angular_positions_deg": [
+        -31.25,
+        -18.75,
+        -6.25,
+        6.25,
+        18.75,
+        31.25
+      ],
+      "housing_inner_arc_radius_mm": 80.0,
+      "housing_outer_arc_radius_mm": 95.0,
+      "housing_thickness_at_center_mm": 15.0,
+      "_note_R85": "R85 in der Zeichnung bezieht sich auf eine andere Referenz als den Stabmittelachsen-Bogen (R=87.5mm) oder den inneren Gehaeusebogen (r=80mm vom Zentrum 0,87.5)."
+    },
+    "_material_order_note": "Stab 1 (µCT_6H_V1_100, geringstes CaHA) ist die am weitesten links liegende Stab (x=-45.393). Stab 6 (µCT_6H_V1_800, 100% RadioMatrix) ist rechts (x=+45.393). Zuordnung anhand Materialliste 1-6 von Robin Heilmann."
+  },
+  "registration_rods": [
+    "µCT_6H_V1_800",
+    "µCT_6H_V1_400"
+  ],
+  "seed_hint": "Rod order across the arc: 800 - 700 - 500 - 400 - 200 - 100. Seed 1 in the outer 100% RadioMatrix rod (brightest, at one end of the arc), seed 2 in the 4th rod counted from it (400). Place both seeds near the rod centre, mid-length.",
+  "seed_region_growing": {
+    "_note": "Rods are only 10 mm in diameter and embedded in a VeroWhite housing (~100 HU). Without smoothing the 400 rod (~385 HU) leaks into the housing (BONE kernel noise SD ~85 HU).",
+    "smoothing_radius_vox": 1,
+    "roi_margin_mm": 5.0,
+    "rod_diameter_mm": 10.0,
+    "max_volume_factor": 1.6
+  },
+  "remove_voids": true,
+  "_radius_note": "radius_mm = segmentation core radius (3 mm). Real rods are Ø10 mm (STEP: R=5); 2 mm margin avoids partial volume with the housing.",
+  "_phantom_theory_note": "Cross-calibrated against BDC-6H200 in clinical CT (7 scans S1-S7, 2026-11, S1 re-segmented; Phantom_Kalibrierung_uCT_6H_V1.xlsx). Hybrid: rods 100-700 from linear fit Ref_000..Ref_600 (as paper), rod 800 from linear fit Ref_000..Ref_800 (avoids extrapolation above Ref_600). sigma = u_total = sqrt(u_ref^2+SEM^2), u_ref 1.2 (fit A) / 1.5 (fit B); trueness not included. phantom_theory = STANDARD kernel (default), phantom_theory_bone used automatically when the volume name contains 'bone'.",
+  "phantom_theory": {
+    "µCT_6H_V1_100": {
+      "caHA_mgcm3": 93.9,
+      "sigma_mgcm3": 1.4
+    },
+    "µCT_6H_V1_200": {
+      "caHA_mgcm3": 235.0,
+      "sigma_mgcm3": 1.4
+    },
+    "µCT_6H_V1_400": {
+      "caHA_mgcm3": 347.6,
+      "sigma_mgcm3": 1.4
+    },
+    "µCT_6H_V1_500": {
+      "caHA_mgcm3": 462.1,
+      "sigma_mgcm3": 1.9
+    },
+    "µCT_6H_V1_700": {
+      "caHA_mgcm3": 579.5,
+      "sigma_mgcm3": 2.1
+    },
+    "µCT_6H_V1_800": {
+      "caHA_mgcm3": 698.6,
+      "sigma_mgcm3": 2.9
+    }
+  },
+  "phantom_theory_bone": {
+    "µCT_6H_V1_100": {
+      "caHA_mgcm3": 96.9,
+      "sigma_mgcm3": 1.4
+    },
+    "µCT_6H_V1_200": {
+      "caHA_mgcm3": 238.3,
+      "sigma_mgcm3": 1.4
+    },
+    "µCT_6H_V1_400": {
+      "caHA_mgcm3": 351.5,
+      "sigma_mgcm3": 1.5
+    },
+    "µCT_6H_V1_500": {
+      "caHA_mgcm3": 467.2,
+      "sigma_mgcm3": 2.1
+    },
+    "µCT_6H_V1_700": {
+      "caHA_mgcm3": 586.3,
+      "sigma_mgcm3": 2.2
+    },
+    "µCT_6H_V1_800": {
+      "caHA_mgcm3": 708.2,
+      "sigma_mgcm3": 2.9
+    }
+  },
+  "housing": {
+    "_description": "Gebogenes Gehaeuse. Bogenmittelpunkt (0, 87.5). Innenbogen r=80mm, Aussenbogen r=95mm, Wandstaerke im Zentrum 15mm. Laenge z: -35..+35 mm.",
+    "arc_center_mm": [
+      0.0,
+      87.5
+    ],
+    "inner_radius_mm": 80.0,
+    "outer_radius_mm": 95.0,
+    "half_length_z_mm": 35.0
+  },
+  "rods": {
+    "µCT_6H_V1_100": {
+      "p0_mm": [
+        -45.393,
+        12.695,
+        32.5
+      ],
+      "p1_mm": [
+        -45.393,
+        12.695,
+        -32.5
+      ],
+      "radius_mm": 3.0,
+      "_source_cad_angle_deg": -31.25,
+      "_arc_radius_mm": 87.5,
+      "material_pct": {
+        "Tissue": 30,
+        "VeroWhite": 70
+      },
+      "_real_radius_mm": 5.0
+    },
+    "µCT_6H_V1_200": {
+      "p0_mm": [
+        -28.126,
+        4.644,
+        32.5
+      ],
+      "p1_mm": [
+        -28.126,
+        4.644,
+        -32.5
+      ],
+      "radius_mm": 3.0,
+      "_source_cad_angle_deg": -18.75,
+      "_arc_radius_mm": 87.5,
+      "material_pct": {
+        "RadioMatrix": 20,
+        "VeroWhite": 80
+      },
+      "_real_radius_mm": 5.0
+    },
+    "µCT_6H_V1_400": {
+      "p0_mm": [
+        -9.583,
+        0.0,
+        32.5
+      ],
+      "p1_mm": [
+        -9.583,
+        0.0,
+        -32.5
+      ],
+      "radius_mm": 3.0,
+      "_source_cad_angle_deg": -6.25,
+      "_arc_radius_mm": 88.023,
+      "material_pct": {
+        "RadioMatrix": 40,
+        "VeroWhite": 60
+      },
+      "hu_thr_min": 250,
+      "hu_thr_max": 650,
+      "_real_radius_mm": 5.0
+    },
+    "µCT_6H_V1_500": {
+      "p0_mm": [
+        9.583,
+        0.0,
+        32.5
+      ],
+      "p1_mm": [
+        9.583,
+        0.0,
+        -32.5
+      ],
+      "radius_mm": 3.0,
+      "_source_cad_angle_deg": 6.25,
+      "_arc_radius_mm": 88.023,
+      "material_pct": {
+        "RadioMatrix": 60,
+        "VeroWhite": 40
+      },
+      "_real_radius_mm": 5.0
+    },
+    "µCT_6H_V1_700": {
+      "p0_mm": [
+        28.126,
+        4.644,
+        32.5
+      ],
+      "p1_mm": [
+        28.126,
+        4.644,
+        -32.5
+      ],
+      "radius_mm": 3.0,
+      "_source_cad_angle_deg": 18.75,
+      "_arc_radius_mm": 87.5,
+      "material_pct": {
+        "RadioMatrix": 80,
+        "VeroWhite": 20
+      },
+      "_real_radius_mm": 5.0
+    },
+    "µCT_6H_V1_800": {
+      "p0_mm": [
+        45.393,
+        12.695,
+        32.5
+      ],
+      "p1_mm": [
+        45.393,
+        12.695,
+        -32.5
+      ],
+      "radius_mm": 3.0,
+      "_source_cad_angle_deg": 31.25,
+      "_arc_radius_mm": 87.5,
+      "material_pct": {
+        "RadioMatrix": 100
+      },
+      "hu_thr_min": 550,
+      "hu_thr_max": 1300,
+      "_real_radius_mm": 5.0
+    }
+  }
+}

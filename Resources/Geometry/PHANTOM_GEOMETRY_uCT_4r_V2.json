@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "phantom_type": "uCT_4r_V2",
+    "display_name": "uCT_4r_V2",
+    "combobox_label": "uCT_4r_V2",
+    "description": "uCT_4r_V2 microCT calibration phantom, 4 inserts, square arrangement. Manufacturer: Stratasys PolyJet.",
+    "source_file": "Knochenphantom_microCT.STEP",
+    "extraction_method": "Extracted automatically from STEP B-Rep. CAD solid names already matched the segment labels.",
+    "coordinate_system": "Local STEP coordinate system of the part.",
+    "units": "mm"
+  },
+  "registration_strategy": "markup_lines",
+  "markup_lines_config": {
+    "line1": {
+      "label": "P800_Achse",
+      "description": "Laengsachse P_800: oberer Endpunkt -> unterer Endpunkt",
+      "p0_phantom_mm": [
+        -12.5,
+        6.0,
+        -12.5
+      ],
+      "p1_phantom_mm": [
+        -12.5,
+        -6.0,
+        -12.5
+      ]
+    },
+    "line2": {
+      "label": "P800_zu_P030",
+      "description": "Oberer Endpunkt P_800 -> Mittelpunkt P_030",
+      "p0_phantom_mm": [
+        -12.5,
+        6.0,
+        -12.5
+      ],
+      "p1_phantom_mm": [
+        12.5,
+        0.0,
+        12.5
+      ]
+    }
+  },
+  "housing": {
+    "_source_cad_name": "Boundary",
+    "p0_mm": [
+      0.0,
+      10.0,
+      0.0
+    ],
+    "p1_mm": [
+      0.0,
+      -10.0,
+      0.0
+    ],
+    "diameter_mm": 60.0
+  },
+  "rods": {
+    "P_800": {
+      "p0_mm": [
+        -12.5,
+        6.0,
+        -12.5
+      ],
+      "p1_mm": [
+        -12.5,
+        -6.0,
+        -12.5
+      ],
+      "radius_mm": 5.0,
+      "_source_cad_name": "P_800",
+      "material_pct": {
+        "RadioMatrix": 100
+      }
+    },
+    "P_100": {
+      "p0_mm": [
+        -12.5,
+        6.0,
+        12.5
+      ],
+      "p1_mm": [
+        -12.5,
+        -6.0,
+        12.5
+      ],
+      "radius_mm": 5.0,
+      "_source_cad_name": "P_100",
+      "material_pct": {
+        "Tissue": 30,
+        "VeroWhite": 70
+      }
+    },
+    "P_030": {
+      "p0_mm": [
+        12.5,
+        6.0,
+        12.5
+      ],
+      "p1_mm": [
+        12.5,
+        -6.0,
+        12.5
+      ],
+      "radius_mm": 5.0,
+      "_source_cad_name": "P_030",
+      "material_pct": {
+        "Tissue": 70,
+        "VeroWhite": 30
+      }
+    },
+    "P_-20": {
+      "p0_mm": [
+        12.5,
+        6.0,
+        -12.5
+      ],
+      "p1_mm": [
+        12.5,
+        -6.0,
+        -12.5
+      ],
+      "radius_mm": 5.0,
+      "_source_cad_name": "P_-20",
+      "material_pct": {
+        "Tissue": 95,
+        "VeroWhite": 5
+      }
+    }
+  },
+  "remove_voids": true,
+  "_phantom_theory_note": "Cross-calibrated against BDC-6H200 (GE Optima CT520, 120 kVp, 6 sessions, Ref_000..Ref_600 linear fit). sigma = u_total (precision, sqrt(u_ref^2+SEM^2)); trueness (LOO-RMSE ~9-11 mgCaHA) not included. 800 rods are linear extrapolations above 600. phantom_theory = STANDARD kernel (default); phantom_theory_bone is used automatically if the volume name contains 'bone'. Source: Phantom_Kalibrierung_Unsicherheit_V2.xlsx, sheet TransferStandards_n5.",
+  "phantom_theory": {
+    "P_800": {
+      "caHA_mgcm3": 682.0,
+      "sigma_mgcm3": 11.1
+    },
+    "P_100": {
+      "caHA_mgcm3": 84.4,
+      "sigma_mgcm3": 2.9
+    },
+    "P_030": {
+      "caHA_mgcm3": 30.1,
+      "sigma_mgcm3": 4.0
+    },
+    "P_-20": {
+      "caHA_mgcm3": -14.0,
+      "sigma_mgcm3": 4.8
+    }
+  },
+  "phantom_theory_bone": {
+    "P_800": {
+      "caHA_mgcm3": 679.9,
+      "sigma_mgcm3": 7.8
+    },
+    "P_100": {
+      "caHA_mgcm3": 90.2,
+      "sigma_mgcm3": 1.2
+    },
+    "P_030": {
+      "caHA_mgcm3": 35.3,
+      "sigma_mgcm3": 1.5
+    },
+    "P_-20": {
+      "caHA_mgcm3": -6.5,
+      "sigma_mgcm3": 2.3
+    }
+  }
+}

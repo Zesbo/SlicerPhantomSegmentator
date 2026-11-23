@@ -1,0 +1,197 @@
+{
+  "meta": {
+    "phantom_type": "3Dprinted_6H100_V1",
+    "display_name": "3Dprinted_6H100_V1",
+    "combobox_label": "3Dprinted_6H100_V1",
+    "description": "3D-printed calibration phantom, 6 inserts, linear arrangement. Manufacturer: Stratasys PolyJet.",
+    "source_file": "Knochenphantom_6H200.STEP",
+    "extraction_method": "Extracted automatically from STEP B-Rep.",
+    "coordinate_system": "Local STEP coordinate system of the part.",
+    "units": "mm"
+  },
+  "registration_rods": [
+    "Z_800",
+    "Z_300"
+  ],
+  "housing": {
+    "_source_cad_name": "Huelle",
+    "p0_mm": [
+      -100.2822,
+      6.1755,
+      50.0
+    ],
+    "p1_mm": [
+      -100.2822,
+      6.1755,
+      -50.0
+    ],
+    "radius_mm": 5.0
+  },
+  "rods": {
+    "Z_800": {
+      "p0_mm": [
+        -87.372,
+        4.65,
+        42.0
+      ],
+      "p1_mm": [
+        -87.372,
+        4.65,
+        -42.0
+      ],
+      "radius_mm": 5.0,
+      "_source_cad_name": "800Z",
+      "hu_thr_min": 500,
+      "hu_thr_max": 1200,
+      "material_pct": {
+        "RadioMatrix": 100
+      }
+    },
+    "Z_600": {
+      "p0_mm": [
+        -52.311,
+        1.575,
+        42.0
+      ],
+      "p1_mm": [
+        -52.311,
+        1.575,
+        -42.0
+      ],
+      "radius_mm": 5.0,
+      "_source_cad_name": "600Z",
+      "material_pct": {
+        "RadioMatrix": 70,
+        "VeroWhite": 30
+      }
+    },
+    "Z_300": {
+      "p0_mm": [
+        -17.461,
+        0.0,
+        42.0
+      ],
+      "p1_mm": [
+        -17.461,
+        0.0,
+        -42.0
+      ],
+      "radius_mm": 5.0,
+      "_source_cad_name": "300Z",
+      "hu_thr_min": 50,
+      "hu_thr_max": 650,
+      "material_pct": {
+        "RadioMatrix": 30,
+        "VeroWhite": 70
+      }
+    },
+    "Z_100": {
+      "p0_mm": [
+        17.461,
+        0.0,
+        42.0
+      ],
+      "p1_mm": [
+        17.461,
+        0.0,
+        -42.0
+      ],
+      "radius_mm": 5.0,
+      "_source_cad_name": "100Z",
+      "material_pct": {
+        "Tissue": 30,
+        "VeroWhite": 70
+      }
+    },
+    "Z_000": {
+      "p0_mm": [
+        52.311,
+        1.575,
+        42.0
+      ],
+      "p1_mm": [
+        52.311,
+        1.575,
+        -42.0
+      ],
+      "radius_mm": 5.0,
+      "_source_cad_name": "000Z",
+      "material_pct": {
+        "Tissue": 70,
+        "VeroWhite": 30
+      }
+    },
+    "Z_-30": {
+      "p0_mm": [
+        87.372,
+        4.65,
+        42.0
+      ],
+      "p1_mm": [
+        87.372,
+        4.65,
+        -42.0
+      ],
+      "radius_mm": 5.0,
+      "_source_cad_name": "-30Z",
+      "material_pct": {
+        "Tissue": 95,
+        "VeroWhite": 5
+      }
+    }
+  },
+  "remove_voids": true,
+  "_phantom_theory_note": "Cross-calibrated against BDC-6H200 (GE Optima CT520, 120 kVp, 6 sessions, Ref_000..Ref_600 linear fit). sigma = u_total (precision, sqrt(u_ref^2+SEM^2)); trueness (LOO-RMSE ~9-11 mgCaHA) not included. 800 rods are linear extrapolations above 600. phantom_theory = STANDARD kernel (default); phantom_theory_bone is used automatically if the volume name contains 'bone'. Source: Phantom_Kalibrierung_Unsicherheit_V2.xlsx, sheet TransferStandards_n5.",
+  "phantom_theory": {
+    "Z_800": {
+      "caHA_mgcm3": 654.0,
+      "sigma_mgcm3": 2.3
+    },
+    "Z_600": {
+      "caHA_mgcm3": 471.0,
+      "sigma_mgcm3": 2.1
+    },
+    "Z_300": {
+      "caHA_mgcm3": 250.4,
+      "sigma_mgcm3": 4.4
+    },
+    "Z_100": {
+      "caHA_mgcm3": 54.8,
+      "sigma_mgcm3": 3.9
+    },
+    "Z_000": {
+      "caHA_mgcm3": 15.2,
+      "sigma_mgcm3": 3.9
+    },
+    "Z_-30": {
+      "caHA_mgcm3": -7.5,
+      "sigma_mgcm3": 3.4
+    }
+  },
+  "phantom_theory_bone": {
+    "Z_800": {
+      "caHA_mgcm3": 651.0,
+      "sigma_mgcm3": 1.9
+    },
+    "Z_600": {
+      "caHA_mgcm3": 472.0,
+      "sigma_mgcm3": 2.0
+    },
+    "Z_300": {
+      "caHA_mgcm3": 251.3,
+      "sigma_mgcm3": 2.5
+    },
+    "Z_100": {
+      "caHA_mgcm3": 57.0,
+      "sigma_mgcm3": 2.3
+    },
+    "Z_000": {
+      "caHA_mgcm3": 12.0,
+      "sigma_mgcm3": 3.0
+    },
+    "Z_-30": {
+      "caHA_mgcm3": -14.0,
+      "sigma_mgcm3": 1.6
+    }
+  }
+}

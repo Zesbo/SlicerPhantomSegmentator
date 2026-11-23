@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phantom Segmentator – User Manual</title>
+<style>
+/* ── Tokens ── */
+:root {
+  --bg:          #F4F7FA;
+  --surface:     #FFFFFF;
+  --surface2:    #EDF1F7;
+  --border:      #CDD6E2;
+  --text:        #0D1B2A;
+  --muted:       #5A6B80;
+  --accent:      #0F8EA8;
+  --accent-dim:  #E4F3F7;
+  --amber:       #B8720E;
+  --amber-dim:   #FDF3E3;
+  --rail:        #0F8EA8;
+  --chip-bg:     #E0EFF4;
+  --chip-text:   #0A6E84;
+  --tag-bg:      #0F8EA8;
+  --tag-text:    #FFFFFF;
+}
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  padding: 0 1rem 4rem;
+}
+a { color: var(--accent); text-decoration: none; }
+
+/* ── Layout ── */
+.page { max-width: 760px; margin: 0 auto; }
+
+/* ── Cover ── */
+.cover {
+  padding: 4rem 0 3.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+.cover-eyebrow {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: .75rem;
+}
+.cover-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  margin-bottom: .6rem;
+}
+.cover-sub {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+  max-width: 520px;
+}
+.cover-meta { display: flex; gap: 2rem; flex-wrap: wrap; }
+.cover-meta-item { font-size: .8rem; color: var(--muted); }
+.cover-meta-item strong { color: var(--text); font-weight: 600; }
+
+/* ── TOC ── */
+.toc {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 3rem;
+}
+.toc-title {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .9rem;
+}
+.toc ol { padding-left: 1.2rem; }
+.toc li { font-size: .9rem; margin-bottom: .25rem; line-height: 1.4; }
+.toc li a { color: var(--text); }
+.toc .sub { padding-left: 1rem; margin-top: .2rem; list-style-type: none; }
+.toc .sub li::before { content: "–  "; color: var(--muted); }
+
+/* ── Sections ── */
+.section { margin-bottom: 3.5rem; }
+.section-eyebrow {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .5rem;
+}
+.section-title {
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -.015em;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+.section-title::after {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--accent);
+  margin-top: .5rem;
+  border-radius: 1px;
+}
+
+p { margin-bottom: .9rem; font-size: .95rem; max-width: 66ch; }
+p:last-child { margin-bottom: 0; }
+
+/* ── Workflow cards ── */
+.workflow-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--rail);
+  border-radius: 0 6px 6px 0;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 1.5rem;
+}
+.workflow-header {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: 1.1rem;
+}
+.phantom-tag {
+  display: inline-block;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  padding: .2rem .55rem;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.workflow-header h3 { font-size: 1rem; font-weight: 700; line-height: 1.2; }
+.workflow-header .seg-names { font-size: .75rem; color: var(--muted); }
+.steps { padding-left: 1.3rem; }
+.steps li {
+  font-size: .9rem;
+  margin-bottom: .55rem;
+  line-height: 1.5;
+  padding-left: .2rem;
+}
+.steps li:last-child { margin-bottom: 0; }
+.steps li em { font-style: normal; color: var(--muted); font-size: .85rem; }
+
+/* ── UI chips ── */
+.btn {
+  display: inline-block;
+  font-size: .78rem;
+  font-weight: 600;
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  padding: .15rem .5rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  border: 1px solid var(--border);
+}
+
+/* ── Callouts ── */
+.note {
+  background: var(--amber-dim);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 5px 5px 0;
+  padding: .8rem 1rem;
+  margin: 1rem 0;
+  font-size: .875rem;
+  max-width: 66ch;
+}
+.note strong { color: var(--amber); }
+.tip {
+  background: var(--accent-dim);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 5px 5px 0;
+  padding: .8rem 1rem;
+  margin: 1rem 0;
+  font-size: .875rem;
+  max-width: 66ch;
+}
+.tip strong { color: var(--accent); }
+
+/* ── Results grid ── */
+.result-grid {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: .875rem;
+  margin-top: .75rem;
+}
+.rg-header { display: contents; }
+.rg-header > div {
+  background: var(--surface2);
+  padding: .5rem .8rem;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+.rg-row { display: contents; }
+.rg-row > div {
+  padding: .5rem .8rem;
+  border-bottom: 1px solid var(--border);
+}
+.rg-row:last-child > div { border-bottom: none; }
+.rg-row:nth-child(even) > div { background: var(--surface2); }
+.avail {
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.avail.all { color: var(--accent); }
+
+/* ── Segment pills ── */
+.seg-pill {
+  display: inline-block;
+  font-size: .72rem;
+  font-family: 'Menlo', 'Consolas', 'Courier New', monospace;
+  color: var(--chip-text);
+  background: var(--chip-bg);
+  padding: .05rem .35rem;
+  border-radius: 3px;
+  margin: .05rem .1rem;
+  white-space: nowrap;
+}
+
+hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+/* ── Print / PDF ── */
+@media print {
+  body { background: white; color: #000; padding: 0; font-size: 11pt; }
+  .cover { padding: 2rem 0 1.5rem; }
+  .workflow-card, .toc, .section, .note, .tip, .result-grid { break-inside: avoid; }
+  .btn { border: 1px solid #bbb; background: #efefef; color: #000; }
+  a { color: #000; }
+  .cover-eyebrow, .section-eyebrow { color: #555; }
+  .section-title::after { background: #888; }
+  .phantom-tag { background: #555; color: #fff; }
+  .seg-pill { background: #eee; color: #333; border: 1px solid #ccc; }
+  .result-grid { border-color: #bbb; }
+  .rg-header > div, .rg-row:nth-child(even) > div { background: #f5f5f5; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="cover">
+    <div class="cover-eyebrow">3D Slicer Extension · Category: Zesbo</div>
+    <h1 class="cover-title">Phantom Segmentator</h1>
+    <p class="cover-sub">Semi-automatic segmentation and calibration of CT bone-mineral-density phantoms. Supports three phantom types with dedicated registration strategies.</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><strong>Module</strong><br>Phantom_Segmentator</div>
+      <div class="cover-meta-item"><strong>Supported Phantoms</strong><br>QMC-Phantom · MicroCT-Phantom · 3Dprinted-QMC</div>
+      <div class="cover-meta-item"><strong>Slicer Compatibility</strong><br>5.x (Python 3)</div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#setup">Setup</a></li>
+      <li><a href="#interface">Interface</a></li>
+      <li><a href="#workflows">Phantom Workflows</a>
+        <ul class="sub">
+          <li><a href="#wf-ref">QMC-Phantom (REF)</a></li>
+          <li><a href="#wf-p">MicroCT-Phantom (P)</a></li>
+          <li><a href="#wf-z">3Dprinted-QMC (Z)</a></li>
+        </ul>
+      </li>
+      <li><a href="#post">Post-Processing</a></li>
+      <li><a href="#results">Results &amp; Output</a></li>
+      <li><a href="#notes">Technical Notes</a></li>
+    </ol>
+  </nav>
+
+  <section class="section" id="overview">
+    <div class="section-eyebrow">Section 1</div>
+    <h2 class="section-title">Overview</h2>
+    <p>Phantom Segmentator automates the placement of rod-shaped segment masks onto CT calibration phantoms. For each phantom type the module determines the rigid-body transformation from phantom coordinates to CT (RAS) space, then rasterizes analytically defined cylinders — avoiding the manual contouring that seed-based or threshold-based tools require.</p>
+    <p>Each phantom type uses a dedicated registration strategy:</p>
+    <ul class="steps" style="padding-left:1.3rem; margin-top:.5rem; margin-bottom:.9rem;">
+      <li>QMC-Phantom and 3Dprinted-QMC use <strong>seed-based region-growing</strong> followed by PCA axis determination and a 3-point landmark transform.</li>
+      <li>MicroCT-Phantom uses a <strong>geometry-only markup-line approach</strong> — two user-placed lines define the phantom pose without any region-growing.</li>
+    </ul>
+    <p>Segment names are globally unique across phantom types (<span class="seg-pill">Ref_800</span>, <span class="seg-pill">P_800</span>, <span class="seg-pill">Z_800</span>), so all three phantoms can be evaluated in the same Slicer scene without segment conflicts.</p>
+  </section>
+
+  <section class="section" id="setup">
+    <div class="section-eyebrow">Section 2</div>
+    <h2 class="section-title">Setup</h2>
+    <p>No separate installation step is required beyond adding the extension to your Slicer extensions path.</p>
+    <ol class="steps">
+      <li>Open 3D Slicer and load the CT volume of the phantom scan.</li>
+      <li>Navigate to <strong>Modules → Zesbo → Phantom Segmentator</strong>.</li>
+      <li>In the <strong>Phantom-Setup</strong> panel, select the correct CT volume from the <span class="btn">CT-Volume</span> dropdown. The volume is immediately shown in all 2D slice views.</li>
+      <li>Select the phantom type from the <span class="btn">Phantomtyp</span> dropdown. The status label updates to show the available rods and the registration method.</li>
+    </ol>
+    <div class="tip"><strong>Tip:</strong> When multiple volumes are loaded, switch between them freely — the 2D views always follow the current selection.</div>
+  </section>
+
+  <section class="section" id="interface">
+    <div class="section-eyebrow">Section 3</div>
+    <h2 class="section-title">Interface</h2>
+    <p>The module panel is divided into two collapsible sections:</p>
+    <p><strong>Phantom-Setup</strong> — volume and phantom-type selection. The status label summarises the loaded geometry and registration landmarks for the current phantom.</p>
+    <p><strong>Segmentierung (Segmentation)</strong> — the main workflow buttons, in order of use:</p>
+    <div style="overflow-x:auto; margin-bottom:1rem;">
+    <table style="width:100%; border-collapse:collapse; font-size:.875rem;">
+      <thead>
+        <tr style="background:var(--surface2);">
+          <th style="text-align:left; padding:.5rem .8rem; border-bottom:1px solid var(--border); font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:700;">Button</th>
+          <th style="text-align:left; padding:.5rem .8rem; border-bottom:1px solid var(--border); font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:700;">Function</th>
+          <th style="text-align:left; padding:.5rem .8rem; border-bottom:1px solid var(--border); font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:700;">Availability</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:.5rem .8rem; white-space:nowrap;"><span class="btn">Seeds setzen</span> / <span class="btn">Markups setzen (2 Linien)</span></td>
+          <td style="padding:.5rem .8rem;">Starts the markup placement mode for the selected phantom type. Label changes automatically.</td>
+          <td style="padding:.5rem .8rem; color:var(--accent); font-size:.8rem; font-weight:600;">All phantoms</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border); background:var(--surface2);">
+          <td style="padding:.5rem .8rem;"><span class="btn">Segment Phantom</span></td>
+          <td style="padding:.5rem .8rem;">Computes the phantom-to-CT transform and fills all rod cylinders.</td>
+          <td style="padding:.5rem .8rem; color:var(--accent); font-size:.8rem; font-weight:600;">All phantoms</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:.5rem .8rem;"><span class="btn">Flip</span></td>
+          <td style="padding:.5rem .8rem;">Applies the alternative rod-axis orientation. Click again to revert.</td>
+          <td style="padding:.5rem .8rem; color:var(--muted); font-size:.8rem; font-weight:600;">REF, Z only</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border); background:var(--surface2);">
+          <td style="padding:.5rem .8rem;"><span class="btn">Lunker entfernen</span></td>
+          <td style="padding:.5rem .8rem;">Removes voxels with HU &lt; −250 and a 2-voxel margin from all segments.</td>
+          <td style="padding:.5rem .8rem; color:var(--muted); font-size:.8rem; font-weight:600;">P, Z only</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:.5rem .8rem;"><span class="btn">Regression / Statistik</span></td>
+          <td style="padding:.5rem .8rem;">Computes segment statistics; runs weighted linear regression for the QMC-Phantom.</td>
+          <td style="padding:.5rem .8rem; color:var(--accent); font-size:.8rem; font-weight:600;">All phantoms</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem .8rem;"><span class="btn">vBMD Volume erzeugen</span></td>
+          <td style="padding:.5rem .8rem;">Applies CaHA = m·HU + b to the entire CT to produce a vBMD volume.</td>
+          <td style="padding:.5rem .8rem; color:var(--muted); font-size:.8rem; font-weight:600;">REF only, after regression</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p><strong>Auswertung (Analysis)</strong> — regression and vBMD export.</p>
+  </section>
+
+  <section class="section" id="workflows">
+    <div class="section-eyebrow">Section 4</div>
+    <h2 class="section-title">Phantom Workflows</h2>
+
+    <div class="workflow-card" id="wf-ref">
+      <div class="workflow-header">
+        <span class="phantom-tag">REF</span>
+        <div>
+          <h3>QMC-Phantom</h3>
+          <div class="seg-names">Segments: <span class="seg-pill">Ref_800</span><span class="seg-pill">Ref_600</span><span class="seg-pill">Ref_400</span><span class="seg-pill">Ref_200</span><span class="seg-pill">Ref_100</span><span class="seg-pill">Ref_000</span></div>
+        </div>
+      </div>
+      <ol class="steps">
+        <li>Select <strong>QMC-Phantom</strong> from the Phantomtyp dropdown.</li>
+        <li>Click <span class="btn">Seeds setzen</span>. A dialog instructs you to place <strong>2 seeds</strong>.</li>
+        <li>Click inside <strong>Rod Ref_800</strong> (highest density, brightest on CT), then inside <strong>Rod Ref_400</strong>. Placement stops automatically after the second confirmed click.</li>
+        <li>Click <span class="btn">Segment Phantom</span>:
+          <ul class="steps" style="margin-top:.4rem;">
+            <li>Region-growing extracts the two seed rods within their HU windows.</li>
+            <li>PCA axis determination finds rod endpoints; a 3-point rigid landmark transform maps phantom → CT.</li>
+            <li>The orientation with the lower RMS landmark error is applied automatically.</li>
+            <li>All six cylinders are rasterised into <em>Phantom_Segmentierung</em>.</li>
+          </ul>
+        </li>
+        <li>Inspect the result. If the segmentation appears mirrored, click <span class="btn">Flip</span>. Clicking again reverts.</li>
+        <li>Click <span class="btn">Regression / Statistik</span> to compute mean HU per rod and run weighted linear regression: <strong>CaHA = m · HU + b</strong>. Results appear in a dialog and are written to <em>Phantom_Regression_Error</em>.</li>
+        <li>Optionally click <span class="btn">vBMD Volume erzeugen</span> to produce a scalar volume with each voxel converted to mg CaHA/cm³.</li>
+      </ol>
+    </div>
+
+    <div class="workflow-card" id="wf-p">
+      <div class="workflow-header">
+        <span class="phantom-tag">P</span>
+        <div>
+          <h3>MicroCT-Phantom</h3>
+          <div class="seg-names">Segments: <span class="seg-pill">P_800</span><span class="seg-pill">P_100</span><span class="seg-pill">P_030</span><span class="seg-pill">P_-20</span></div>
+        </div>
+      </div>
+      <p style="font-size:.875rem; color:var(--muted); margin-bottom:.8rem;">Registration uses two user-placed markup lines rather than region-growing — precise pose estimation for short (12 mm) parallel rods.</p>
+      <ol class="steps">
+        <li>Select <strong>MicroCT-Phantom</strong> from the Phantomtyp dropdown.</li>
+        <li>Click <span class="btn">Markups setzen (2 Linien)</span>. A dialog explains the two placement steps.</li>
+        <li><strong>Line 1 — Rod P_800 axis</strong> (<em>P800_Achse</em>): click the <strong>upper endpoint</strong> of rod P_800's long axis, then its <strong>lower endpoint</strong>.</li>
+        <li>The module switches automatically to <strong>Line 2</strong> after a brief pause.</li>
+        <li><strong>Line 2 — Cross-orientation</strong> (<em>P800_zu_P030</em>): click the <strong>upper endpoint of P_800</strong> again, then the <strong>centre of rod P_030</strong> (diagonally opposite in the XZ plane).</li>
+        <li>Click <span class="btn">Segment Phantom</span>:
+          <ul class="steps" style="margin-top:.4rem;">
+            <li>Three CT landmarks are mapped to phantom coordinates via a rigid landmark transform — no region-growing is performed.</li>
+            <li>All four cylinders are rasterised.</li>
+          </ul>
+        </li>
+        <li>If air voids are visible, click <span class="btn">Lunker entfernen</span>.</li>
+        <li>Click <span class="btn">Regression / Statistik</span> for segment statistics (no regression — reference values not available).</li>
+      </ol>
+      <div class="note" style="margin-top:.9rem; max-width:none;"><strong>Note:</strong> Line 1 endpoint order does not matter — the module identifies the "upper" end by proximity to the start of Line 2.</div>
+    </div>
+
+    <div class="workflow-card" id="wf-z">
+      <div class="workflow-header">
+        <span class="phantom-tag">Z</span>
+        <div>
+          <h3>3Dprinted-QMC</h3>
+          <div class="seg-names">Segments: <span class="seg-pill">Z_800</span><span class="seg-pill">Z_600</span><span class="seg-pill">Z_300</span><span class="seg-pill">Z_100</span><span class="seg-pill">Z_000</span><span class="seg-pill">Z_-30</span></div>
+        </div>
+      </div>
+      <ol class="steps">
+        <li>Select <strong>3Dprinted-QMC</strong> from the Phantomtyp dropdown.</li>
+        <li>Click <span class="btn">Seeds setzen</span>. A dialog instructs you to place <strong>2 seeds</strong>.</li>
+        <li>Click inside <strong>Rod Z_800</strong> (highest density), then inside <strong>Rod Z_300</strong>. Placement stops automatically.</li>
+        <li>Click <span class="btn">Segment Phantom</span>. Workflow identical to QMC-Phantom: region-growing → PCA → landmark transform → cylinder rasterisation.</li>
+        <li>If the orientation is mirrored, click <span class="btn">Flip</span>.</li>
+        <li>If printing artefacts or air inclusions are visible, click <span class="btn">Lunker entfernen</span>.</li>
+        <li>Click <span class="btn">Regression / Statistik</span> for segment statistics.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="post">
+    <div class="section-eyebrow">Section 5</div>
+    <h2 class="section-title">Post-Processing</h2>
+
+    <p><strong>Void Removal — Lunker entfernen</strong></p>
+    <p>3D-printed phantoms can contain localised air pockets that bias density measurements. Clicking <span class="btn">Lunker entfernen</span> applies the following to every segment in <em>Phantom_Segmentierung</em>:</p>
+    <ol class="steps">
+      <li>Identify all segment voxels with <strong>HU &lt; −250</strong>.</li>
+      <li>Dilate the void mask by <strong>2 voxels</strong> in all 26 directions (3 × 3 × 3 structuring element).</li>
+      <li>Zero out the dilated region within the segment. Voxels outside existing segment boundaries are not affected.</li>
+    </ol>
+    <p>The result dialog reports how many segments were modified and the total number of voxels removed.</p>
+
+    <hr>
+
+    <p><strong>Regression (QMC-Phantom only)</strong></p>
+    <p>The module performs <strong>weighted least-squares regression</strong> CaHA = m · HU + b. Weights account for both phantom manufacturer tolerances (σ_phantom) and HU measurement uncertainty (σ_HU). The final result includes:</p>
+    <ul class="steps">
+      <li>Calibration equation and R² displayed in a dialog.</li>
+      <li>Per-rod error table written to <em>Phantom_Regression_Error</em> (absolute error, relative error, uncertainty breakdown).</li>
+    </ul>
+  </section>
+
+  <section class="section" id="results">
+    <div class="section-eyebrow">Section 6</div>
+    <h2 class="section-title">Results &amp; Output</h2>
+
+    <div class="result-grid">
+      <div class="rg-header">
+        <div>MRML Node</div>
+        <div>Contents</div>
+        <div>Availability</div>
+      </div>
+      <div class="rg-row">
+        <div><em>Phantom_Segmentierung</em></div>
+        <div>Segmentation node with all cylinder segments. Segments accumulate across phantom types — uniquely named, no overwrite.</div>
+        <div class="avail all">All</div>
+      </div>
+      <div class="rg-row">
+        <div><em>Phantom_Segmentierung_Statistik</em></div>
+        <div>Table: mean HU, standard deviation, voxel count per segment.</div>
+        <div class="avail all">All</div>
+      </div>
+      <div class="rg-row">
+        <div><em>Phantom_Regression_Error</em></div>
+        <div>Table: theory vs. fitted CaHA, absolute/relative error, σ_phantom, σ_HU, σ_residual, σ_total per rod.</div>
+        <div class="avail">REF only</div>
+      </div>
+      <div class="rg-row">
+        <div><em>[Volume]_vBMD</em></div>
+        <div>Scalar volume where each voxel is converted to mg CaHA/cm³ using the regression equation.</div>
+        <div class="avail">REF only</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="notes">
+    <div class="section-eyebrow">Section 7</div>
+    <h2 class="section-title">Technical Notes</h2>
+
+    <p><strong>Cylinder geometry.</strong> Rod endpoints and radii are read from JSON geometry files in <code>Resources/Geometry/</code>. Cylinder rasterisation is fully vectorised using NumPy meshgrid operations — bounding-box extraction, axis projection, and radial distance test run in a single pass per rod.</p>
+
+    <p><strong>Region-growing.</strong> A 6-connected BFS flood-fill is seeded from the user-placed point. If the seed voxel falls outside the configured HU window, a 5 × 5 × 5 neighbourhood is searched for the nearest qualifying voxel. Growth is capped at 500 000 voxels to prevent runaway expansion from incorrect seeds.</p>
+
+    <p><strong>Flip disambiguation.</strong> For the axis-based registration (REF, Z), both orientations of Rod A are tested; the one yielding the lower RMS landmark error is applied automatically. The Flip button swaps the stored best / alternative transforms without re-running segmentation.</p>
+
+    <p><strong>Markup-line registration (P-Phantom).</strong> Three non-collinear CT landmarks are extracted from two markup lines and mapped to known phantom coordinates via <code>vtkLandmarkTransform</code> in rigid-body mode. The RMS residual is reported in the completion dialog.</p>
+
+    <p><strong>Segment naming.</strong> All segment identifiers include a phantom-type prefix (<span class="seg-pill">Ref_</span>, <span class="seg-pill">P_</span>, <span class="seg-pill">Z_</span>) so that evaluating all three phantoms in one session populates a single <em>Phantom_Segmentierung</em> node with uniquely named segments, ready for simultaneous statistics export.</p>
+
+    <div class="note"><strong>Switching phantom types</strong> within a session resets markup nodes and transform state. Previously created segments in <em>Phantom_Segmentierung</em> are preserved.</div>
+  </section>
+
+</div>
+</body>
+</html>

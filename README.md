@@ -1,6 +1,6 @@
 # Phantom Segmentator
 
-A [3D Slicer](https://www.slicer.org) scripted module for semi-automatic segmentation of CT calibration phantoms and HU→mgCaHA calibration. Developed at the [ZESBO](https://www.uni-leipzig.de/zesbo), University of Leipzig.
+A [3D Slicer](https://www.slicer.org) scripted module for semi-automatic segmentation of CT calibration phantoms and HU→mgCaHA calibration. Developed at the [ZESBO](https://zesbo.de).
 
 ## Overview
 
@@ -94,5 +94,6 @@ This project is licensed under the MIT License — see [LICENSE](LICENSE) for de
 
 ## Acknowledgements
 
-Developed at the Centre for Spine and Bone Oncology (ZESBO), University of Leipzig, Germany.
-Funded by [funding source].
+ZESBO – Zentrum zur Erforschung der Stütz- und Bewegungsorgane  
+Orthopaedics, Trauma and Plastic Surgery, Spine Center  
+Leipzig University – Faculty of Medicine

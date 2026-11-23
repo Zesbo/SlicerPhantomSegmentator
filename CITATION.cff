@@ -5,8 +5,8 @@ type: software
 authors:
   - family-names: Heilmann
     given-names: Robin
-    affiliation: "Centre for Spine and Bone Oncology (ZESBO), University of Leipzig"
-    # orcid: "https://orcid.org/0000-0000-0000-0000"
+    affiliation: "ZESBO - Zentrum zur Erforschung der Stütz- und Bewegungsorgane; Orthopaedics, Trauma and Plastic Surgery, Spine Center; Leipzig University - Faculty of Medicine"
+    orcid: "https://orcid.org/0000-0001-7299-0224"
 version: 1.0.0
 date-released: 2026-11-23
 license: MIT

@@ -1,5 +1,7 @@
 # Phantom Segmentator
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24464233.svg)](https://doi.org/10.5281/zenodo.24464233)
+
 A [3D Slicer](https://www.slicer.org) scripted module for semi-automatic segmentation of CT calibration phantoms and HU→mgCaHA calibration. Developed at the [ZESBO](https://zesbo.de).
 
 ## Overview
@@ -73,12 +75,30 @@ To add a custom phantom, create a new JSON following the same structure and add 
 
 ## Citation
 
-If you use this software in your research, please cite the accompanying paper:
+If you use this software in your research, please cite the software and the accompanying paper.
+
+**Software (v1.0.0):**
+
+> Heilmann R (2026). *Phantom Segmentator: a 3D Slicer module for CT calibration phantom segmentation and HU-to-mgCaHA calibration* (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.24464233
+
+To cite the latest version instead, use the concept DOI [10.5281/zenodo.24464232](https://doi.org/10.5281/zenodo.24464232).
+
+**Paper:**
 
 > Heilmann R, *et al.* (2026). *3D-printed bone calibration phantoms as transferable QCT standards.* Physica Medica. [DOI pending]
 
 BibTeX:
 ```bibtex
+@software{heilmann2026phantomsegmentator,
+  author    = {Heilmann, Robin},
+  title     = {Phantom Segmentator: a 3D Slicer module for CT calibration phantom segmentation and HU-to-mgCaHA calibration},
+  version   = {v1.0.0},
+  publisher = {Zenodo},
+  year      = {2026},
+  doi       = {10.5281/zenodo.24464233},
+  url       = {https://doi.org/10.5281/zenodo.24464233}
+}
+
 @article{heilmann2026phantom,
   author  = {Heilmann, Robin and others},
   title   = {3D-printed bone calibration phantoms as transferable QCT standards},
